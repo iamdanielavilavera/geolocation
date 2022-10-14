@@ -9,7 +9,7 @@ function App() {
 
   const [list, setList] = useState([]);
 
-  const { latitude, longitude, locerror } = useGeoLocation(true, { enableHighAccuracy: true })
+  const { latitude, longitude, locerror } = useGeoLocation(true, { enableHighAccuracy: false })
 
   useEffect(() => {
     console.log('latitude', latitude);
