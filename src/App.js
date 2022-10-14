@@ -1,23 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
+import { useGeoLocation } from './useGeoLocation';
 
 function App() {
+
+  const [list, setList] = useState([]);
+
+  const { latitude, longitude, locerror } = useGeoLocation(true, { enableHighAccuracy: true })
+
+  useEffect(() => {
+    console.log('latitude', latitude);
+    console.log('longitude', longitude);
+    setList([
+      ...list,
+      {
+        latitude,
+        longitude,
+      },
+    ]);
+  }, [latitude]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {list.map((location, i) => {
+        return (
+          <div key={i}>
+            [{location.latitude}-{location.longitude}]
+          </div>
+        );
+      })}
     </div>
   );
 }
